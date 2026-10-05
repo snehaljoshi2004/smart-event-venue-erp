@@ -1,0 +1,17 @@
+const express = require("express");
+
+const paymentController = require("../controllers/payment.controller");
+const authenticate = require("../middleware/authenticate");
+const authorize = require("../middleware/authorize");
+
+const router = express.Router();
+
+router.use(authenticate);
+
+router.post(
+  "/events/:eventId/payments",
+  authorize("admin"),
+  paymentController.addPayment
+);
+
+module.exports = router;
